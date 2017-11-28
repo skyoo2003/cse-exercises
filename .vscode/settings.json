@@ -1,0 +1,7 @@
+{
+    "python.venvPath": "${workspaceRoot}/python/.venv",
+    "go.gopath": "${workspaceRoot}/golang",
+    "go.testFlags": [
+        "-v"
+    ]
+}
