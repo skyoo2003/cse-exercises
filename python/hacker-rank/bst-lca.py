@@ -1,5 +1,6 @@
 """
 https://www.hackerrank.com/challenges/binary-search-tree-lowest-common-ancestor/problem
+[NOTE] This answer only fits this question. The best solution is here. ( https://www.hackerrank.com/challenges/binary-search-tree-lowest-common-ancestor/editorial )
 """
 
 """
