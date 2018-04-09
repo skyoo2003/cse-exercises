@@ -1,7 +1,19 @@
 {
-    "python.venvPath": "${workspaceRoot}/python/.venv",
-    "go.gopath": "${workspaceRoot}/golang",
+    "go.gopath": "${workspaceFolder}/golang",
     "go.testFlags": [
         "-v"
-    ]
+    ],
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyArgs": [
+        "--cache-dir=${workspaceFolder}/python/.mypy_cache"
+    ],
+    "python.linting.pylintArgs": [
+        "--rcfile=${workspaceFolder}/python/.pylintrc"
+    ],
+    "python.unitTest.cwd": "${workspaceFolder}/python",
+    "python.unitTest.nosetestsEnabled": true,
+    "python.unitTest.nosetestArgs": [
+        "--config=${workspaceFolder}/python/.noserc"
+    ],
+    "python.envFile": "${workspaceFolder}/python/.env",
 }
