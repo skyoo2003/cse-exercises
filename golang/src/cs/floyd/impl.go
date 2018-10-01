@@ -35,7 +35,7 @@ func NewFloyd(count int) *Floyd {
 	f := &Floyd{
 		Count:   count,
 		Weights: weights,
-		Dists:   weights,
+		Dists:   dists,
 	}
 	return f
 }
