@@ -15,5 +15,6 @@
     "python.unitTest.nosetestArgs": [
         "--config=${workspaceFolder}/python/.noserc"
     ],
-    "python.envFile": "${workspaceFolder}/python/.env"
+    "python.envFile": "${workspaceFolder}/python/.env",
+    "python.pythonPath": "${workspaceFolder}/python/.venv/bin/python"
 }
