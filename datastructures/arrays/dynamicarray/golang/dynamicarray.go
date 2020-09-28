@@ -96,7 +96,7 @@ func (a *DynamicArray) Range(begin, end int) ([]interface{}, error) {
 	if !a.validIndex(begin) || !a.validIndex(end) {
 		return nil, ErrIndexOutOfRange
 	}
-	return a.buffer[begin : end+1], nil
+	return a.buffer[begin:end], nil
 }
 
 func (a *DynamicArray) Set(index int, value interface{}) error {
@@ -154,7 +154,23 @@ func (a *DynamicArray) Insert(index int, values ...interface{}) error {
 }
 
 func (a *DynamicArray) Remove(index int) (interface{}, error) {
-	return nil, nil
+	if a.size == 0 {
+		return nil, ErrNoData
+	}
+	if !a.validIndex(index) {
+		return nil, ErrIndexOutOfRange
+	}
+	newSize := a.size - 1
+	if err := a.recap(newSize); err != nil {
+		return nil, err
+	}
+
+	value := a.buffer[index]
+	for i := index + 1; i < a.size; i++ {
+		a.buffer[i-1] = a.buffer[i]
+	}
+	a.size = newSize
+	return value, nil
 }
 
 func (a *DynamicArray) Pop() (interface{}, error) {

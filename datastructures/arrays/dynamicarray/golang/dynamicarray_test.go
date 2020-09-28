@@ -23,7 +23,7 @@ func TestDynamicArray(t *testing.T) {
 	arr.Prepend(10, 11)
 
 	expected := []interface{}{10, 11, 1, 2, 9, 8, 7, 3, 4, 5, 6, 4, 5, 6}
-	actual, _ := arr.Range(0, arr.Size()-1)
+	actual, _ := arr.Range(0, arr.Size())
 	if len(actual) != len(expected) {
 		t.Error("Invalid buffer")
 	}
@@ -33,5 +33,7 @@ func TestDynamicArray(t *testing.T) {
 			t.FailNow()
 		}
 	}
+	arr.Remove(2)
+	t.Log(arr.Range(0, arr.Size()))
 	t.Log(arr.Size(), arr.Capacity())
 }
