@@ -18,4 +18,5 @@ pyparsing==2.4.7          # via packaging
 pytest==6.1.1             # via -r requirements.in
 six==1.15.0               # via packaging
 toml==0.10.1              # via pytest
+yapf==0.30.0              # via -r requirements.in
 zipp==3.3.0               # via importlib-metadata
