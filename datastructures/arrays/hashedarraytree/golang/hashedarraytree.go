@@ -91,6 +91,9 @@ func (hat *HashedArrayTree) shrink() error {
 }
 
 func (hat *HashedArrayTree) realloc(newPower int) error {
+	if newPower == hat.power {
+		return nil
+	}
 	newTop := makeTop(pow2(newPower))
 	if newPower > hat.power {
 		for i, j := 0, 0; i < len(newTop) && j < len(hat.top); i, j = i+1, j+2 {
