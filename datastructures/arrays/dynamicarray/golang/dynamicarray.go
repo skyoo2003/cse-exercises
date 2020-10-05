@@ -9,6 +9,10 @@ var (
 	ErrNoData          = errors.New("no data")
 )
 
+const (
+	GrowthFactor = 2
+)
+
 type DynamicArray struct {
 	buffer   []interface{}
 	capacity int
@@ -34,8 +38,8 @@ func (a *DynamicArray) validIndex(index int) bool {
 	return true
 }
 
-func (a *DynamicArray) recap(claimSize int) error {
-	if claimSize >= a.capacity {
+func (a *DynamicArray) resize(claimSize int) error {
+	if claimSize >= a.capacity { // Need to expand
 		for claimSize >= a.capacity {
 			if err := a.expand(); err != nil {
 				return err
@@ -53,27 +57,27 @@ func (a *DynamicArray) recap(claimSize int) error {
 
 func (a *DynamicArray) expand() error {
 	if a.capacity == 0 {
-		a.resize(1)
+		a.realloc(1)
 	} else {
-		a.resize(a.capacity * 2)
+		a.realloc(a.capacity * 2)
 	}
 	return nil
 }
 
 func (a *DynamicArray) shrink() error {
 	if a.capacity >= 2 {
-		a.resize(a.capacity / 2)
+		a.realloc(a.capacity / 2)
 	} else {
-		a.resize(1)
+		a.realloc(1)
 	}
 	return nil
 }
 
-func (a *DynamicArray) resize(newSize int) error {
-	newBuffer := make([]interface{}, newSize)
+func (a *DynamicArray) realloc(capacity int) error {
+	newBuffer := make([]interface{}, capacity)
 	copy(newBuffer, a.buffer)
 	a.buffer = newBuffer
-	a.capacity = newSize
+	a.capacity = capacity
 	return nil
 }
 
@@ -96,7 +100,15 @@ func (a *DynamicArray) Range(begin, end int) ([]interface{}, error) {
 	if !a.validIndex(begin) || !a.validIndex(end) {
 		return nil, ErrIndexOutOfRange
 	}
-	return a.buffer[begin:end], nil
+	buf := make([]interface{}, 0)
+	for i := begin; i < end; i++ {
+		if value, err := a.Get(i); err == nil {
+			buf = append(buf, value)
+		} else {
+			return nil, err
+		}
+	}
+	return buf, nil
 }
 
 func (a *DynamicArray) Set(index int, value interface{}) error {
@@ -109,7 +121,7 @@ func (a *DynamicArray) Set(index int, value interface{}) error {
 
 func (a *DynamicArray) Append(values ...interface{}) error {
 	newSize := a.size + len(values)
-	if err := a.recap(newSize); err != nil {
+	if err := a.resize(newSize); err != nil {
 		return err
 	}
 	for i, j := a.size, 0; i < newSize; i, j = i+1, j+1 {
@@ -122,7 +134,7 @@ func (a *DynamicArray) Append(values ...interface{}) error {
 func (a *DynamicArray) Prepend(values ...interface{}) error {
 	lenValues := len(values)
 	newSize := a.size + lenValues
-	if err := a.recap(newSize); err != nil {
+	if err := a.resize(newSize); err != nil {
 		return err
 	}
 	// Move items in the buffer by the length of values
@@ -139,7 +151,7 @@ func (a *DynamicArray) Prepend(values ...interface{}) error {
 func (a *DynamicArray) Insert(index int, values ...interface{}) error {
 	lenValues := len(values)
 	newSize := a.size + lenValues
-	if err := a.recap(newSize); err != nil {
+	if err := a.resize(newSize); err != nil {
 		return err
 	}
 	// Move items in the middle of the buffer by the length of values
@@ -161,11 +173,10 @@ func (a *DynamicArray) Remove(index int) (interface{}, error) {
 		return nil, ErrIndexOutOfRange
 	}
 	newSize := a.size - 1
-	if err := a.recap(newSize); err != nil {
+	if err := a.resize(newSize); err != nil {
 		return nil, err
 	}
-
-	value := a.buffer[index]
+	value, _ := a.Get(index)
 	for i := index + 1; i < a.size; i++ {
 		a.buffer[i-1] = a.buffer[i]
 	}
@@ -174,29 +185,9 @@ func (a *DynamicArray) Remove(index int) (interface{}, error) {
 }
 
 func (a *DynamicArray) Pop() (interface{}, error) {
-	if a.size == 0 {
-		return nil, ErrNoData
-	}
-	newSize := a.size - 1
-	if err := a.recap(newSize); err != nil {
-		return nil, err
-	}
-	value := a.buffer[a.size-1]
-	a.size = newSize
-	a.buffer = a.buffer[:a.size]
-	return value, nil
+	return a.Remove(a.size - 1)
 }
 
 func (a *DynamicArray) Shift() (interface{}, error) {
-	if a.size == 0 {
-		return nil, ErrNoData
-	}
-	newSize := a.size - 1
-	if err := a.recap(newSize); err != nil {
-		return nil, err
-	}
-	value := a.buffer[0]
-	a.size = newSize
-	a.buffer = a.buffer[1:]
-	return value, nil
+	return a.Remove(0)
 }
