@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// ReducedString My solution
 func ReducedString(in *os.File) string {
 	var line string
 	fmt.Fscanf(in, "%s", &line)

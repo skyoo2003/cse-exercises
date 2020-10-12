@@ -8,11 +8,13 @@ import (
 	"os"
 )
 
+// Trie trie data structure
 type Trie struct {
 	Node   map[rune]*Trie
 	IsLeaf bool
 }
 
+// NewTrie create a trie
 func NewTrie() *Trie {
 	return &Trie{
 		Node:   make(map[rune]*Trie),
@@ -20,6 +22,7 @@ func NewTrie() *Trie {
 	}
 }
 
+// Add add string into trie
 func (t *Trie) Add(phrase string) error {
 	root := t
 	for _, word := range phrase {
@@ -32,6 +35,7 @@ func (t *Trie) Add(phrase string) error {
 	return nil
 }
 
+// Search find matched string by query
 func (t *Trie) Search(query string) (*Trie, error) {
 	root := t
 	for _, word := range query {
@@ -43,6 +47,7 @@ func (t *Trie) Search(query string) (*Trie, error) {
 	return root, nil
 }
 
+// NoPrefixSet My solution
 func NoPrefixSet(in *os.File) {
 	var N int
 	trie := NewTrie()
@@ -56,9 +61,8 @@ func NoPrefixSet(in *os.File) {
 				fmt.Println("BAD SET")
 				fmt.Println(line)
 				return
-			} else {
-				trie.Add(line)
 			}
+			trie.Add(line)
 		} else {
 			fmt.Println("BAD SET")
 			fmt.Println(line)

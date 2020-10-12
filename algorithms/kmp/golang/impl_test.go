@@ -20,5 +20,5 @@ func TestKMPSearch(t *testing.T) {
 
 	io.WriteString(in, testcase)
 	in.Seek(0, os.SEEK_SET)
-	KMPSearch(in)
+	Search(in)
 }

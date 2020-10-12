@@ -9,10 +9,12 @@ import (
 	"strings"
 )
 
+// KMP kmp string matching algorithm data structure
 type KMP struct {
 	S string
 }
 
+// NewKMP create a kmp
 func NewKMP(S string) *KMP {
 	return &KMP{
 		S: S,
@@ -71,7 +73,8 @@ func (t *KMP) search(W string) ([]int, int) {
 	return P, nP
 }
 
-func KMPSearch(in *os.File) {
+// Search My solution
+func Search(in *os.File) {
 	r := bufio.NewReader(in)
 	sl, _, _ := r.ReadLine()
 	S := strings.TrimSpace(string(sl))

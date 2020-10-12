@@ -1,10 +1,12 @@
 package doublelinkedlist
 
+// DoubleLinkedNode double linked list's node data structure
 type DoubleLinkedNode struct {
 	value      interface{}
 	prev, next *DoubleLinkedNode
 }
 
+// NewDoubleLinkedNode create a node
 func NewDoubleLinkedNode(value interface{}, prev, next *DoubleLinkedNode) *DoubleLinkedNode {
 	return &DoubleLinkedNode{
 		value: value,
@@ -13,23 +15,28 @@ func NewDoubleLinkedNode(value interface{}, prev, next *DoubleLinkedNode) *Doubl
 	}
 }
 
+// Prev get a previous node
 func (n *DoubleLinkedNode) Prev() *DoubleLinkedNode {
 	return n.prev
 }
 
+// Next get a next node
 func (n *DoubleLinkedNode) Next() *DoubleLinkedNode {
 	return n.next
 }
 
+// Value get a value of node
 func (n *DoubleLinkedNode) Value() interface{} {
 	return n.value
 }
 
+// DoubleLinkedList double linked list data structure
 type DoubleLinkedList struct {
 	first, last *DoubleLinkedNode
 	len         int
 }
 
+// NewDoubleLinkedList create a double linked list
 func NewDoubleLinkedList() *DoubleLinkedList {
 	return &DoubleLinkedList{
 		first: nil,
@@ -38,14 +45,17 @@ func NewDoubleLinkedList() *DoubleLinkedList {
 	}
 }
 
+// First get a first node in double linked list
 func (l *DoubleLinkedList) First() *DoubleLinkedNode {
 	return l.first
 }
 
+// Last get a last node in double linked list
 func (l *DoubleLinkedList) Last() *DoubleLinkedNode {
 	return l.last
 }
 
+// InsertAfter insert a value after the node
 func (l *DoubleLinkedList) InsertAfter(value interface{}, node *DoubleLinkedNode) *DoubleLinkedNode {
 	newNode := NewDoubleLinkedNode(value, node, nil)
 	if node.next == nil {
@@ -59,6 +69,7 @@ func (l *DoubleLinkedList) InsertAfter(value interface{}, node *DoubleLinkedNode
 	return newNode
 }
 
+// InsertBefore insert a value before the node
 func (l *DoubleLinkedList) InsertBefore(value interface{}, node *DoubleLinkedNode) *DoubleLinkedNode {
 	newNode := NewDoubleLinkedNode(value, nil, node)
 	if node.prev == nil {
@@ -72,6 +83,7 @@ func (l *DoubleLinkedList) InsertBefore(value interface{}, node *DoubleLinkedNod
 	return newNode
 }
 
+// InsertFront insert a value in front of double linked list
 func (l *DoubleLinkedList) InsertFront(value interface{}) *DoubleLinkedNode {
 	var newNode *DoubleLinkedNode
 	if l.first == nil {
@@ -84,6 +96,7 @@ func (l *DoubleLinkedList) InsertFront(value interface{}) *DoubleLinkedNode {
 	return newNode
 }
 
+// InsertLast insert a value in the end of double linked list
 func (l *DoubleLinkedList) InsertLast(value interface{}) *DoubleLinkedNode {
 	var newNode *DoubleLinkedNode
 	if l.last == nil {
@@ -95,6 +108,7 @@ func (l *DoubleLinkedList) InsertLast(value interface{}) *DoubleLinkedNode {
 	return newNode
 }
 
+// Remove delete a node from double linked list
 func (l *DoubleLinkedList) Remove(node *DoubleLinkedNode) interface{} {
 	value := node.value
 	if node.prev == nil {
@@ -111,10 +125,12 @@ func (l *DoubleLinkedList) Remove(node *DoubleLinkedNode) interface{} {
 	return value
 }
 
+// Len get size of double linked list
 func (l *DoubleLinkedList) Len() int {
 	return l.len
 }
 
+// Clear reset the double linked list
 func (l *DoubleLinkedList) Clear() {
 	l.first, l.last = nil, nil
 	l.len = 0

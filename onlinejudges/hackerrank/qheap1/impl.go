@@ -8,12 +8,15 @@ import (
 	"os"
 )
 
+// Value value type
 type Value int
 
+// Heap heap data structure
 type Heap struct {
 	Data []Value
 }
 
+// NewHeap create a heap
 func NewHeap() *Heap {
 	return &Heap{
 		Data: make([]Value, 0),
@@ -44,6 +47,7 @@ func (t *Heap) rightChild(index int) (Value, int) {
 	return 0, -1
 }
 
+// Insert insert a value into heap
 func (t *Heap) Insert(value Value) error {
 	t.Data = append(t.Data, value)
 	idx := len(t.Data) - 1
@@ -59,6 +63,7 @@ func (t *Heap) Insert(value Value) error {
 	return nil
 }
 
+// Delete a value from heap
 func (t *Heap) Delete(value Value) error {
 	if len(t.Data) > 0 {
 		where := -1
@@ -102,6 +107,7 @@ func (t *Heap) Delete(value Value) error {
 	return errors.New("No data")
 }
 
+// Top find maximum value in heap
 func (t *Heap) Top() (Value, error) {
 	if len(t.Data) > 0 {
 		return t.Data[0], nil
@@ -109,6 +115,7 @@ func (t *Heap) Top() (Value, error) {
 	return 0, errors.New("No data")
 }
 
+// QHeap1 My solution
 func QHeap1(in *os.File) {
 	var Q int
 	heap := NewHeap()

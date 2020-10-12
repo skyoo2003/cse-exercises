@@ -12,7 +12,7 @@ func main() {
 		fmt.Scan(&f, &s, &t)
 		v := f<<2 + s<<1 + t
 		if v >= 5 || v == 3 { // 1 1 1 / 1 1 0 / 1 0 1 / 0 1 1
-			solves += 1
+			solves++
 		}
 	}
 	fmt.Println(solves)

@@ -9,6 +9,7 @@ import (
 	"unicode"
 )
 
+// Camelcase My solution
 func Camelcase(in *os.File) int {
 	var line string
 	fmt.Fscanf(in, "%s", &line)

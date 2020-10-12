@@ -9,11 +9,11 @@ import (
 func binRecursive(n, k int) int {
 	if k == 0 || n == k {
 		return 1
-	} else {
-		return binRecursive(n-1, k-1) + binRecursive(n-1, k)
 	}
+	return binRecursive(n-1, k-1) + binRecursive(n-1, k)
 }
 
+// BinRecursive My solution
 func BinRecursive(in *os.File) {
 	var n, k int
 	fmt.Fscanf(in, "%d %d", &n, &k)
@@ -39,6 +39,7 @@ func binDP(n, k int) int {
 	return table[n][k]
 }
 
+// BinDP My solution
 func BinDP(in *os.File) {
 	var n, k int
 	fmt.Fscanf(in, "%d %d", &n, &k)

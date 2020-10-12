@@ -9,14 +9,17 @@ import (
 	"strings"
 )
 
-const MAX_WEIGHT = math.MaxFloat64
+// MaxWeight maximum weight
+const MaxWeight = math.MaxFloat64
 
+// Floyd floyd algorithm data structure
 type Floyd struct {
 	Count   int
 	Weights [][]float64
 	Dists   [][]float64
 }
 
+// NewFloyd create a floyd
 func NewFloyd(count int) *Floyd {
 	weights := make([][]float64, count+1)
 	dists := make([][]float64, count+1)
@@ -27,7 +30,7 @@ func NewFloyd(count int) *Floyd {
 			if i > 0 && j > 0 && i == j {
 				weights[i][j] = 0
 			} else {
-				weights[i][j] = MAX_WEIGHT
+				weights[i][j] = MaxWeight
 			}
 			dists[i][j] = weights[i][j]
 		}
@@ -40,6 +43,7 @@ func NewFloyd(count int) *Floyd {
 	return f
 }
 
+// AddEdge add a edge
 func (f *Floyd) AddEdge(from, to int, weight float64) error {
 	if from < 1 || to < 1 || f.Count < from || f.Count < to {
 		return fmt.Errorf("out of bound error")
@@ -48,6 +52,7 @@ func (f *Floyd) AddEdge(from, to int, weight float64) error {
 	return nil
 }
 
+// Calculate calculate distances
 func (f *Floyd) Calculate() error {
 	for k := 1; k <= f.Count; k++ {
 		for i := 1; i <= f.Count; i++ {
@@ -59,7 +64,8 @@ func (f *Floyd) Calculate() error {
 	return nil
 }
 
-func FloydAlgorithm(in *os.File) {
+// Algorithm My solution
+func Algorithm(in *os.File) {
 	bin := bufio.NewReader(in)
 	var l []byte
 

@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// DynamicArray My solution
 func DynamicArray(in *os.File) {
 	var N, Q int
 	fmt.Fscanf(in, "%d %d", &N, &Q)

@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// ArrayLeftRotation My solution
 func ArrayLeftRotation(in *os.File) {
 	var N, D int
 	fmt.Fscanf(in, "%d %d", &N, &D)

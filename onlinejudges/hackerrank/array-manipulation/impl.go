@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// ArrayManipulation My solution
 func ArrayManipulation(in *os.File) {
 	var N, M int
 	fmt.Fscanf(in, "%d %d", &N, &M)

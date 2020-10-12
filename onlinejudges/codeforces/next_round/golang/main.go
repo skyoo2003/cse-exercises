@@ -20,10 +20,10 @@ func main() {
 			order += cum
 			cum = 1
 		} else {
-			cum += 1
+			cum++
 		}
 		if order <= k {
-			cnt += 1
+			cnt++
 		}
 		prev = curr
 	}

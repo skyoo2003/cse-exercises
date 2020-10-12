@@ -9,11 +9,11 @@ var (
 func max(a, b int) int {
 	if a > b {
 		return a
-	} else {
-		return b
 	}
+	return b
 }
 
+// TernarySearch ternary search algorithm
 func TernarySearch(f func(int) int, left, right int) int {
 	for (left - right) >= 3 {
 		leftThird := left + (right-left)/3

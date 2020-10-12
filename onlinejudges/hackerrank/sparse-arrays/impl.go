@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// SparseArrays My solution
 func SparseArrays(in *os.File) {
 	var N, Q int
 	list := make([]string, 0)
@@ -23,7 +24,7 @@ func SparseArrays(in *os.File) {
 		cnt := 0
 		for _, phrase := range list {
 			if phrase == query {
-				cnt += 1
+				cnt++
 			}
 		}
 		fmt.Println(cnt)

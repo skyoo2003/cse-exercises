@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-var Vowels = map[byte]bool{
+var vowels = map[byte]bool{
 	'a': true,
 	'o': true,
 	'y': true,
@@ -22,7 +22,7 @@ func main() {
 	s = strings.ToLower(s)
 	for i := 0; i < len(s); i++ {
 		ch := s[i]
-		if _, ok := Vowels[ch]; ok {
+		if _, ok := vowels[ch]; ok {
 			continue
 		} else {
 			buf.WriteByte('.')

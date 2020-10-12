@@ -5,24 +5,30 @@ import (
 )
 
 var (
+	// ErrIndexOutOfRange index out of range in dynamic array
 	ErrIndexOutOfRange = errors.New("index out of range")
-	ErrNoData          = errors.New("no data")
+	// ErrNoData can not found any data in dynamic array
+	ErrNoData = errors.New("no data")
 )
 
 const (
+	// GrowthFactor ratio to increase/decrease capacity of dynamic array
 	GrowthFactor = 2
 )
 
+// DynamicArray dynamic array data structure
 type DynamicArray struct {
 	buffer   []interface{}
 	capacity int
 	size     int
 }
 
+// NewDynamicArray create a dynamic array
 func NewDynamicArray() DynamicArray {
 	return NewDynamicArrayWithSize(0)
 }
 
+// NewDynamicArrayWithSize create a dynmaic array with initial size
 func NewDynamicArrayWithSize(size int) DynamicArray {
 	return DynamicArray{
 		buffer:   make([]interface{}, size),
@@ -81,14 +87,17 @@ func (a *DynamicArray) realloc(capacity int) error {
 	return nil
 }
 
+// Capacity get capacity of dynamic array
 func (a *DynamicArray) Capacity() int {
 	return a.capacity
 }
 
+// Size get size of dynamic array
 func (a *DynamicArray) Size() int {
 	return a.size
 }
 
+// Get get a value by index in dynamic array
 func (a *DynamicArray) Get(index int) (interface{}, error) {
 	if !a.validIndex(index) {
 		return nil, ErrIndexOutOfRange
@@ -96,6 +105,7 @@ func (a *DynamicArray) Get(index int) (interface{}, error) {
 	return a.buffer[index], nil
 }
 
+// Range get values between begin and end in dynamic array
 func (a *DynamicArray) Range(begin, end int) ([]interface{}, error) {
 	if !a.validIndex(begin) || !a.validIndex(end) {
 		return nil, ErrIndexOutOfRange
@@ -111,6 +121,7 @@ func (a *DynamicArray) Range(begin, end int) ([]interface{}, error) {
 	return buf, nil
 }
 
+// Set set a value by index in dynamic array
 func (a *DynamicArray) Set(index int, value interface{}) error {
 	if !a.validIndex(index) {
 		return ErrIndexOutOfRange
@@ -119,6 +130,7 @@ func (a *DynamicArray) Set(index int, value interface{}) error {
 	return nil
 }
 
+// Append insert values in the end of dynamic array
 func (a *DynamicArray) Append(values ...interface{}) error {
 	newSize := a.size + len(values)
 	if err := a.resize(newSize); err != nil {
@@ -131,6 +143,7 @@ func (a *DynamicArray) Append(values ...interface{}) error {
 	return nil
 }
 
+// Prepend insert values in front of dynamic array
 func (a *DynamicArray) Prepend(values ...interface{}) error {
 	lenValues := len(values)
 	newSize := a.size + lenValues
@@ -148,6 +161,7 @@ func (a *DynamicArray) Prepend(values ...interface{}) error {
 	return nil
 }
 
+// Insert insert values by index in dynamic array
 func (a *DynamicArray) Insert(index int, values ...interface{}) error {
 	lenValues := len(values)
 	newSize := a.size + lenValues
@@ -165,6 +179,7 @@ func (a *DynamicArray) Insert(index int, values ...interface{}) error {
 	return nil
 }
 
+// Remove remove a value by index from dynamic array
 func (a *DynamicArray) Remove(index int) (interface{}, error) {
 	if a.size == 0 {
 		return nil, ErrNoData
@@ -184,10 +199,12 @@ func (a *DynamicArray) Remove(index int) (interface{}, error) {
 	return value, nil
 }
 
+// Pop remove a value in the end of dynamic array and get the value
 func (a *DynamicArray) Pop() (interface{}, error) {
 	return a.Remove(a.size - 1)
 }
 
+// Shift remove a value in front of dynamic array and get the value
 func (a *DynamicArray) Shift() (interface{}, error) {
 	return a.Remove(0)
 }

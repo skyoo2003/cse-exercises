@@ -6,12 +6,14 @@ import (
 	"os"
 )
 
+// Trie trie data structure
 type Trie struct {
 	Node     map[rune]*Trie
 	Contacts []int
 	IsLeaf   bool
 }
 
+// NewTrie create a trie
 func NewTrie() *Trie {
 	return &Trie{
 		Node:     make(map[rune]*Trie),
@@ -20,6 +22,7 @@ func NewTrie() *Trie {
 	}
 }
 
+// Add add string into trie
 func (t *Trie) Add(phrase string, no int) error {
 	root := t
 	for _, word := range phrase {
@@ -34,6 +37,7 @@ func (t *Trie) Add(phrase string, no int) error {
 	return nil
 }
 
+// Search find matched string by query
 func (t *Trie) Search(query string) ([]int, error) {
 	root := t
 	for _, word := range query {
@@ -45,6 +49,7 @@ func (t *Trie) Search(query string) ([]int, error) {
 	return root.Contacts, nil
 }
 
+// Contact My solution
 func Contact(in *os.File) {
 	var N int
 	fmt.Fscanf(in, "%d", &N)

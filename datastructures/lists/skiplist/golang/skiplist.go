@@ -10,12 +10,16 @@ import (
 )
 
 var (
-	ErrNotFound   = errors.New("not found")
+	// ErrNotFound not found in skip list
+	ErrNotFound = errors.New("not found")
+	// ErrOutOfLevel out of level in skip list
 	ErrOutOfLevel = errors.New("out of level")
 )
 
 const (
-	MaxLevel    = 32
+	// MaxLevel maximum level
+	MaxLevel = 32
+	// Probability probability to increase level randomly
 	Probability = 0.5
 )
 
@@ -26,7 +30,7 @@ func init() {
 func randomLevel() int {
 	level := 1
 	for rand.Float64() < Probability && level < MaxLevel {
-		level += 1
+		level++
 	}
 	return level
 }
@@ -39,12 +43,14 @@ func setNode(nodes []*Node, level int, node *Node) {
 	nodes[level-1] = node
 }
 
+// Node skip list's node data structure
 type Node struct {
 	key      int
 	value    interface{}
 	forwards []*Node
 }
 
+// NewNode create a node
 func NewNode(key int, value interface{}) *Node {
 	return &Node{
 		key:      key,
@@ -53,16 +59,19 @@ func NewNode(key int, value interface{}) *Node {
 	}
 }
 
+// Forward get a forward node by level
 func (n *Node) Forward(level int) *Node {
 	return getNode(n.forwards, level)
 }
 
+// SkipList skip list data structure
 type SkipList struct {
 	header *Node
 	size   int
 	level  int
 }
 
+// NewSkipList create a skip list
 func NewSkipList() *SkipList {
 	header := NewNode(math.MaxInt64, nil)
 	for i := 0; i < MaxLevel; i++ {
@@ -75,18 +84,22 @@ func NewSkipList() *SkipList {
 	}
 }
 
+// Size get size of skip list
 func (sl *SkipList) Size() int {
 	return sl.size
 }
 
+// Level get level of skip list
 func (sl *SkipList) Level() int {
 	return sl.level
 }
 
+// Front get header of skip list
 func (sl *SkipList) Front() *Node {
 	return sl.header
 }
 
+// Search find key in skip list
 func (sl *SkipList) Search(key int) (*Node, error) {
 	x := sl.header
 	for lvl := sl.level; lvl >= 1; lvl-- {
@@ -114,6 +127,7 @@ func (sl *SkipList) getUpdateAndCursor(key int) (update []*Node, x *Node) {
 	return
 }
 
+// Insert add an item into skip list
 func (sl *SkipList) Insert(key int, value interface{}) error {
 	update, x := sl.getUpdateAndCursor(key)
 	if x.key == key {
@@ -136,6 +150,7 @@ func (sl *SkipList) Insert(key int, value interface{}) error {
 	return nil
 }
 
+// Delete delete an item by key from skip list
 func (sl *SkipList) Delete(key int) error {
 	update, x := sl.getUpdateAndCursor(key)
 	if x.key == key {
@@ -154,6 +169,7 @@ func (sl *SkipList) Delete(key int) error {
 	return ErrNotFound
 }
 
+// String print information of skip list for debugging
 func (sl *SkipList) String() string {
 	var buf bytes.Buffer
 	for lvl := sl.level; lvl >= 1; lvl-- {

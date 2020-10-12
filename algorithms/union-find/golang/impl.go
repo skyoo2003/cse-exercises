@@ -5,10 +5,12 @@ import (
 	"os"
 )
 
+// WorstDisjointSet worst disjoint set data structure
 type WorstDisjointSet struct {
 	parents []int
 }
 
+// NewWorstDisjointSet create a worst disjoint set
 func NewWorstDisjointSet(N int) *WorstDisjointSet {
 	parents := make([]int, 0)
 	for n := 0; n < N; n++ {
@@ -33,6 +35,7 @@ func (s *WorstDisjointSet) union(f, t int) {
 	}
 }
 
+// WorstUnionFind My solution
 func WorstUnionFind(in *os.File) {
 	var N int
 	fmt.Fscanf(in, "%d", &N)
@@ -57,11 +60,13 @@ func WorstUnionFind(in *os.File) {
 	}
 }
 
+// OptimizedDisjointSet optimized disjoint set data structure
 type OptimizedDisjointSet struct {
 	parents []int
 	ranks   []int
 }
 
+// NewOptimizedDisjointSet create a optimized disjoint set
 func NewOptimizedDisjointSet(N int) *OptimizedDisjointSet {
 	parents := make([]int, 0)
 	ranks := make([]int, 0)
@@ -96,6 +101,7 @@ func (s *OptimizedDisjointSet) union(f, t int) {
 	}
 }
 
+// OptimizedUnionFind My solution
 func OptimizedUnionFind(in *os.File) {
 	var N int
 	fmt.Fscanf(in, "%d", &N)

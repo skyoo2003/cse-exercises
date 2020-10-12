@@ -30,5 +30,5 @@ func TestFloydAlgorithm(t *testing.T) {
 		`
 	io.WriteString(in, testcase)
 	in.Seek(0, os.SEEK_SET)
-	FloydAlgorithm(in)
+	Algorithm(in)
 }

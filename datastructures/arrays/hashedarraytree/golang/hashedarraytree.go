@@ -6,16 +6,22 @@ import (
 )
 
 const (
-	DefaultPower    = 1 // log2(top)
-	DefaultTop      = 2 // pow(2, power), log2(capacity)
-	DefaultCapacity = 4 // pow(2, top)
+	// DefaultPower log2(top)
+	DefaultPower = 1
+	// DefaultTop pow(2, power), log2(capacity)
+	DefaultTop = 2
+	// DefaultCapacity pow(2, top)
+	DefaultCapacity = 4
 )
 
 var (
+	// ErrIndexOutOfRange index out of rnage in hat
 	ErrIndexOutOfRange = errors.New("index out of range")
-	ErrNoData          = errors.New("no data")
+	// ErrNoData can not found any data in hat
+	ErrNoData = errors.New("no data")
 )
 
+// HashedArrayTree hashed array tree data structure
 type HashedArrayTree struct {
 	top      [][]interface{}
 	capacity int
@@ -39,6 +45,7 @@ func log2(n int) int {
 	return int(math.Log2(float64(n)))
 }
 
+// NewHashedArrayTree create a hashed array tree
 func NewHashedArrayTree() HashedArrayTree {
 	return HashedArrayTree{
 		top:      makeTop(DefaultTop),
@@ -119,14 +126,17 @@ func (hat *HashedArrayTree) leafIndex(index int) int {
 	return index & ((1 << hat.power) - 1)
 }
 
+// Size get size of hashed array tree
 func (hat *HashedArrayTree) Size() int {
 	return hat.size
 }
 
+// Capacity get capacity of hashed array tree
 func (hat *HashedArrayTree) Capacity() int {
 	return hat.capacity
 }
 
+// Get get a value by index in hashed array tree
 func (hat *HashedArrayTree) Get(index int) (interface{}, error) {
 	if !hat.validIndex(index) {
 		return nil, ErrIndexOutOfRange
@@ -135,6 +145,7 @@ func (hat *HashedArrayTree) Get(index int) (interface{}, error) {
 	return hat.top[ti][li], nil
 }
 
+// Range get values between begin and end in hahsed array tree
 func (hat *HashedArrayTree) Range(begin, end int) ([]interface{}, error) {
 	if !hat.validIndex(begin) || !hat.validIndex(end) {
 		return nil, ErrIndexOutOfRange
@@ -150,6 +161,7 @@ func (hat *HashedArrayTree) Range(begin, end int) ([]interface{}, error) {
 	return buf, nil
 }
 
+// Set set a value by index in hashed array tree
 func (hat *HashedArrayTree) Set(index int, value interface{}) error {
 	if !hat.validIndex(index) {
 		return ErrIndexOutOfRange
@@ -159,6 +171,7 @@ func (hat *HashedArrayTree) Set(index int, value interface{}) error {
 	return nil
 }
 
+// Append insert values in the end of hashed array tree
 func (hat *HashedArrayTree) Append(values ...interface{}) error {
 	newSize := hat.size + len(values)
 	if err := hat.resize(newSize); err != nil {
@@ -172,6 +185,7 @@ func (hat *HashedArrayTree) Append(values ...interface{}) error {
 	return nil
 }
 
+// Prepend insert values in front of hashed array tree
 func (hat *HashedArrayTree) Prepend(values ...interface{}) error {
 	lenValues := len(values)
 	newSize := hat.size + lenValues
@@ -192,6 +206,7 @@ func (hat *HashedArrayTree) Prepend(values ...interface{}) error {
 	return nil
 }
 
+// Insert insert values by index in hashed array tree
 func (hat *HashedArrayTree) Insert(index int, values ...interface{}) error {
 	lenValues := len(values)
 	newSize := hat.size + lenValues
@@ -210,9 +225,9 @@ func (hat *HashedArrayTree) Insert(index int, values ...interface{}) error {
 	}
 	hat.size = newSize
 	return nil
-
 }
 
+// Remove remove a value by index from hashed array tree
 func (hat *HashedArrayTree) Remove(index int) (interface{}, error) {
 	if hat.size == 0 {
 		return nil, ErrNoData
@@ -236,10 +251,12 @@ func (hat *HashedArrayTree) Remove(index int) (interface{}, error) {
 	return value, nil
 }
 
+// Pop remove a value in the end of hashed array tree and get the value
 func (hat *HashedArrayTree) Pop() (interface{}, error) {
 	return hat.Remove(hat.size - 1)
 }
 
+// Shift remove a value in front of hashed array tree and get the value
 func (hat *HashedArrayTree) Shift() (interface{}, error) {
 	return hat.Remove(0)
 }
