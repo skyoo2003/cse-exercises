@@ -11,4 +11,4 @@ while line:
         line = line[1:]
     cnt += 1
 
-print (cnt)
+print(cnt)

@@ -6,5 +6,5 @@ while N > 0:
     out = []
     for ch in word:
         out.append(ch * rep)
-    print ("".join(out))
+    print("".join(out))
     N -= 1

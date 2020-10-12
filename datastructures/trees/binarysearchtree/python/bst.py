@@ -3,6 +3,7 @@
 
 from typing import Optional
 
+
 class BSTNode(object):
     def __init__(self, data: int,
                  parent: Optional['BSTNode'] = None,
@@ -62,7 +63,7 @@ class BSTNode(object):
                     node.right = BSTNode(data=data, parent=node)
                     return True
                 node = node.right
-            else: # NOTE: Invalid case because data already exists
+            else:  # NOTE: Invalid case because data already exists
                 return False
         return True
 
@@ -80,6 +81,7 @@ class BSTNode(object):
             node.parent.left = node.right
         del node
         return True
+
 
 class BST:
     def __init__(self):

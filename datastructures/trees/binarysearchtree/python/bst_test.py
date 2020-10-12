@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from unittest import TestCase
-from cs.trees.bst import BSTNode, BST
+from .bst import BSTNode, BST
+
 
 class BSTNodeTestCase(TestCase):
     def setUp(self):
@@ -22,6 +23,7 @@ class BSTNodeTestCase(TestCase):
         self.assertEqual(self.root.data, 10)
         self.assertEqual(self.root.left, self.left)
         self.assertEqual(self.root.right, self.right)
+
 
 class BSTTestCase(TestCase):
     def setUp(self):
@@ -59,12 +61,12 @@ class BSTTestCase(TestCase):
         self.assertEqual(self.tree.root.left.right.data, 9)
         self.assertEqual(self.tree.root.left.left.left.data, 3)
         self.assertEqual(self.tree.root.left.left.right.data, 5)
-        
+
         # NOTE: Expected tree structure after deletion
         #         10
         #       5
         #     4   9
-        #   3   
+        #   3
         success = self.tree.delete(8)
         self.assertEqual(success, True)
         self.assertEqual(self.tree.root.left.data, 5)

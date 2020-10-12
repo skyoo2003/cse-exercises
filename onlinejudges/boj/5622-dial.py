@@ -14,4 +14,4 @@ line = input()
 for ch in line:
     sum += dial[ch] + 1
 
-print (sum)
+print(sum)

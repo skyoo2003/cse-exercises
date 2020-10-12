@@ -14,4 +14,4 @@ for ch, cnt in counters.items():
     elif cnt == mcnt:
         dup = True
 
-print (mch.upper() if not dup else "?")
+print(mch.upper() if not dup else "?")

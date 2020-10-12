@@ -8,5 +8,4 @@ for idx, ch in enumerate(line):
     if indices[ch] == -1:
         indices[ch] = idx
 
-print (' '.join([str(indices[ch]) for ch in alphabets]))
-
+print(' '.join([str(indices[ch]) for ch in alphabets]))

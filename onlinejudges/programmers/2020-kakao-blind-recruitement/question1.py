@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 # https://programmers.co.kr/learn/courses/30/lessons/60057
 
+
 def solution(s):
     answer = 0
 
     N = len(s)
     fz = None
-    for l in range(1, N//2+1):
-        ts = [s[i:i+l] for i in range(0, N, l)]
-        lt = ts[0] # last term
+    for l in range(1, N // 2 + 1):
+        ts = [s[i:i + l] for i in range(0, N, l)]
+        lt = ts[0]  # last term
         cnt = 1
         z = ''
         for t in ts[1:]:

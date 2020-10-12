@@ -1,6 +1,7 @@
 """
 https://www.hackerrank.com/challenges/binary-search-tree-lowest-common-ancestor/problem
-[NOTE] This answer only fits this question. The best solution is here. ( https://www.hackerrank.com/challenges/binary-search-tree-lowest-common-ancestor/editorial )
+
+This answer only fits this question. The best solution is here. (https://www.hackerrank.com/challenges/binary-search-tree-lowest-common-ancestor/editorial)
 """
 
 """
@@ -9,6 +10,7 @@ self.left (the left child of the node)
 self.right (the right child of the node)
 self.data (the value of the node)
 """
+
 
 def parents(node, value):
     if not node:
@@ -20,16 +22,18 @@ def parents(node, value):
     else:
         return parents(node.right, value) + [node]
 
+
 def lca(root, v1, v2):
     p1 = parents(root, v1)
     p2 = parents(root, v2)
-    l, r = 0, 0
+    left, right = 0, 0
     while True:
-        if p1[l].data == p2[r].data:
-            return p1[l]
-        if l+1 < len(p1) and len(p1)-l > len(p2)-r:
-            l += 1
-        elif r+1 < len(p2) and len(p2)-r > len(p1)-l:
-            r += 1
-        else: break
+        if p1[left].data == p2[right].data:
+            return p1[left]
+        if left + 1 < len(p1) and len(p1) - left > len(p2) - right:
+            left += 1
+        elif right + 1 < len(p2) and len(p2) - right > len(p1) - left:
+            right += 1
+        else:
+            break
     return root

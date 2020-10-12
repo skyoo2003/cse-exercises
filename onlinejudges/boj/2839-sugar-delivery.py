@@ -8,8 +8,10 @@ https://www.acmicpc.net/problem/2839
 
 N = int(input())
 
+
 def sum(n5k, n3k):
     return 5 * n5k + 3 * n3k
+
 
 n5k, n3k = 0, 0
 succeed = False
@@ -30,4 +32,4 @@ while True:
     else:
         break
 
-print (n5k + n3k if succeed else -1)
+print(n5k + n3k if succeed else -1)
