@@ -1,3 +1,4 @@
+// nolint
 package binomialcoefficient
 
 import (

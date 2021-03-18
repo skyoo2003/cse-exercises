@@ -1,3 +1,4 @@
+// nolint
 package contacts
 
 import (
@@ -42,7 +43,7 @@ func (t *Trie) Search(query string) ([]int, error) {
 	root := t
 	for _, word := range query {
 		if _, ok := root.Node[word]; !ok {
-			return nil, errors.New("Not found")
+			return nil, errors.New("not found")
 		}
 		root = root.Node[word]
 	}
@@ -61,7 +62,9 @@ func Contact(in *os.File) {
 		fmt.Fscanf(in, "%s %s", &cmd, &arg)
 		switch cmd {
 		case "add":
-			trie.Add(arg, n)
+			if err := trie.Add(arg, n); err != nil {
+				panic(err)
+			}
 		case "find":
 			contacts, err := trie.Search(arg)
 			if err != nil {

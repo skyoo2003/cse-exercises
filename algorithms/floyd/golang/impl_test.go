@@ -9,7 +9,7 @@ import (
 
 func TestFloydAlgorithm(t *testing.T) {
 	in, _ := ioutil.TempFile(os.TempDir(), "")
-	defer in.Close()
+	defer func() { _ = in.Close() }()
 
 	testcase :=
 		`5
@@ -28,7 +28,13 @@ func TestFloydAlgorithm(t *testing.T) {
 		2 5
 		3 2
 		`
-	io.WriteString(in, testcase)
-	in.Seek(0, os.SEEK_SET)
+	if _, err := io.WriteString(in, testcase); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if _, err := in.Seek(0, io.SeekStart); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	Algorithm(in)
 }

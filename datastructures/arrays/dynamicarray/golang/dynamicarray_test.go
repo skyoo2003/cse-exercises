@@ -10,17 +10,32 @@ func TestDynamicArray(t *testing.T) {
 	if arr.Capacity() != 2 {
 		t.Error("Invalid initial capacity")
 	}
-	arr.Append(1, 2, 3)
+	if err := arr.Append(1, 2, 3); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	if arr.Size() != 3 {
 		t.Error("Invalid size after appending")
 	}
 	if arr.Capacity() == 2 {
 		t.Error("Invalid capacity after appending")
 	}
-	arr.Append(4, 5, 6)
-	arr.Append(4, 5, 6)
-	arr.Insert(2, 9, 8, 7)
-	arr.Prepend(10, 11)
+	if err := arr.Append(4, 5, 6); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if err := arr.Append(4, 5, 6); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if err := arr.Insert(2, 9, 8, 7); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if err := arr.Prepend(10, 11); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 
 	expected := []interface{}{10, 11, 1, 2, 9, 8, 7, 3, 4, 5, 6, 4, 5, 6}
 	actual, _ := arr.Range(0, arr.Size())
@@ -33,7 +48,10 @@ func TestDynamicArray(t *testing.T) {
 			t.FailNow()
 		}
 	}
-	arr.Remove(2)
+	if _, err := arr.Remove(2); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	t.Log(arr.Range(0, arr.Size()))
 	t.Log(arr.Size(), arr.Capacity())
 }

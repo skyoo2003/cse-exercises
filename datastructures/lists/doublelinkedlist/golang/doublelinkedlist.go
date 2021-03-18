@@ -1,3 +1,4 @@
+// nolint
 package doublelinkedlist
 
 // DoubleLinkedNode double linked list's node data structure

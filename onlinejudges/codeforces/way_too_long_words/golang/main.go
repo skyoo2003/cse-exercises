@@ -7,6 +7,8 @@ import (
 	"strings"
 )
 
+const limit = 10
+
 func main() {
 	var n int
 	var arr []string
@@ -15,7 +17,7 @@ func main() {
 	for i := 0; i < n; i++ {
 		var s string
 		fmt.Scan(&s)
-		if len(s) > 10 {
+		if len(s) > limit {
 			var buf bytes.Buffer
 			buf.WriteByte(s[0])
 			ins := len(s[1 : len(s)-1])

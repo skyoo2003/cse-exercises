@@ -9,7 +9,7 @@ import (
 
 func TestNoPrefixSet1(t *testing.T) {
 	in, _ := ioutil.TempFile(os.TempDir(), "")
-	defer in.Close()
+	defer func() { _ = in.Close() }()
 
 	testcase :=
 		`7
@@ -20,14 +20,20 @@ func TestNoPrefixSet1(t *testing.T) {
 		cedaaa
 		bbbbbbbbbb
 		jabjjjad`
-	io.WriteString(in, testcase)
-	in.Seek(0, os.SEEK_SET)
+	if _, err := io.WriteString(in, testcase); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if _, err := in.Seek(0, io.SeekStart); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	NoPrefixSet(in)
 }
 
 func TestNoPrefixSet2(t *testing.T) {
 	in, _ := ioutil.TempFile(os.TempDir(), "")
-	defer in.Close()
+	defer func() { _ = in.Close() }()
 
 	testcase :=
 		`4
@@ -35,14 +41,20 @@ func TestNoPrefixSet2(t *testing.T) {
 		aac
 		aacghgh
 		aabghgh`
-	io.WriteString(in, testcase)
-	in.Seek(0, os.SEEK_SET)
+	if _, err := io.WriteString(in, testcase); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if _, err := in.Seek(0, io.SeekStart); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	NoPrefixSet(in)
 }
 
 func TestNoPrefixSet3(t *testing.T) {
 	in, _ := ioutil.TempFile(os.TempDir(), "")
-	defer in.Close()
+	defer func() { _ = in.Close() }()
 
 	testcase :=
 		`100
@@ -146,8 +158,14 @@ func TestNoPrefixSet3(t *testing.T) {
 		dggjafcajhbbbaja
 		bejihed
 		eeahhcggaaidifdigcfjbficcfhjj`
-	io.WriteString(in, testcase)
-	in.Seek(0, os.SEEK_SET)
+	if _, err := io.WriteString(in, testcase); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if _, err := in.Seek(0, io.SeekStart); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	NoPrefixSet(in)
 	/*
 		BAD SET

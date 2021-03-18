@@ -25,6 +25,9 @@ func TestSkipList(t *testing.T) {
 	t.Log(node.key, node.value)
 
 	t.Log("\n" + sl.String())
-	sl.Delete(11)
+	if err := sl.Delete(11); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	t.Log("\n" + sl.String())
 }

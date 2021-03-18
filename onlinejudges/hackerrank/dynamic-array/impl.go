@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/dynamic-array/problem
-
+// nolint
 package dynamicarray
 
 import (

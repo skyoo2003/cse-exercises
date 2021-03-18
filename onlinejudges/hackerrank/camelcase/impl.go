@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/no-prefix-set/problem
-
+// nolint
 package reducedstring
 
 import (
@@ -14,9 +14,7 @@ func Camelcase(in *os.File) int {
 	var line string
 	fmt.Fscanf(in, "%s", &line)
 
-	fields := strings.FieldsFunc(line, func(r rune) bool {
-		return unicode.IsUpper(r)
-	})
+	fields := strings.FieldsFunc(line, unicode.IsUpper)
 	fmt.Println(len(fields))
 	return len(fields)
 }

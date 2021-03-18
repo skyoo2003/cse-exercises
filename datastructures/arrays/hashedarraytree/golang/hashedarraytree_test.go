@@ -5,13 +5,28 @@ import "testing"
 func TestHashedArrayTree(t *testing.T) {
 	hat := NewHashedArrayTree()
 	t.Log(hat.top, hat.size, hat.capacity, hat.power)
-	hat.Append(1, 2, 3)
+	if err := hat.Append(1, 2, 3); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	t.Log(hat.top, hat.size, hat.capacity, hat.power)
-	hat.Append(4, 5, 6)
+	if err := hat.Append(4, 5, 6); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	t.Log(hat.top, hat.size, hat.capacity, hat.power)
-	hat.Insert(2, 9, 8, 7)
-	hat.Prepend(10, 11)
-	hat.Remove(2)
+	if err := hat.Insert(2, 9, 8, 7); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if err := hat.Prepend(10, 11); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if _, err := hat.Remove(2); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	// 10, 11, 2, 9, 8, 7, 3, 4, 5, 6
 	t.Log(hat.top, hat.size, hat.capacity, hat.power)
 

@@ -1,5 +1,6 @@
 // https://programmers.co.kr/skill_checks/175094?challenge_id=2549
-package main
+// nolint
+package golang
 
 import "sort"
 

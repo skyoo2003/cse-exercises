@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/sparse-arrays/problem
-
+// nolint
 package sparsearrays
 
 import (

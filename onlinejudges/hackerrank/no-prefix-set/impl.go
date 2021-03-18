@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/no-prefix-set/problem
-
+// nolint
 package noprefixset
 
 import (
@@ -40,7 +40,7 @@ func (t *Trie) Search(query string) (*Trie, error) {
 	root := t
 	for _, word := range query {
 		if _, ok := root.Node[word]; !ok {
-			return root, errors.New("Not found")
+			return root, errors.New("not found")
 		}
 		root = root.Node[word]
 	}
@@ -62,7 +62,9 @@ func NoPrefixSet(in *os.File) {
 				fmt.Println(line)
 				return
 			}
-			trie.Add(line)
+			if err := trie.Add(line); err != nil {
+				panic(err)
+			}
 		} else {
 			fmt.Println("BAD SET")
 			fmt.Println(line)

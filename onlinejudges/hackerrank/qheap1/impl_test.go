@@ -9,7 +9,7 @@ import (
 
 func TestQHeap1(t *testing.T) {
 	in, _ := ioutil.TempFile(os.TempDir(), "")
-	defer in.Close()
+	defer func() { _ = in.Close() }()
 
 	testcase :=
 		`5
@@ -18,14 +18,20 @@ func TestQHeap1(t *testing.T) {
 		3
 		2 4
 		3`
-	io.WriteString(in, testcase)
-	in.Seek(0, os.SEEK_SET)
+	if _, err := io.WriteString(in, testcase); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if _, err := in.Seek(0, io.SeekStart); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	QHeap1(in)
 }
 
 func TestQHeap2(t *testing.T) {
 	in, _ := ioutil.TempFile(os.TempDir(), "")
-	defer in.Close()
+	defer func() { _ = in.Close() }()
 
 	testcase :=
 		`22
@@ -51,9 +57,16 @@ func TestQHeap2(t *testing.T) {
 		2 -51159108
 		3
 		1 789534713`
-	io.WriteString(in, testcase)
-	in.Seek(0, os.SEEK_SET)
+	if _, err := io.WriteString(in, testcase); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if _, err := in.Seek(0, io.SeekStart); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 	QHeap1(in)
+	// nolint:gocritic
 	/*
 		255653921
 		274310529

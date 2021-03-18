@@ -1,7 +1,7 @@
 // https://programmers.co.kr/skill_checks/175094?challenge_id=335
 // Ref: https://m.blog.naver.com/orbis1020/220664563768
-
-package main
+// nolint
+package golang
 
 // gcd 파라미터는 항상 a > b
 func gcd(a, b int) int {
@@ -13,7 +13,7 @@ func gcd(a, b int) int {
 }
 
 func solution(w int, h int) int64 {
-	var answer int64 = 0
+	var answer int64
 
 	var c int
 	if w < h {

@@ -1,3 +1,4 @@
+// nolint
 package hashedarraytree
 
 import (
@@ -97,9 +98,9 @@ func (hat *HashedArrayTree) shrink() error {
 	return nil
 }
 
-func (hat *HashedArrayTree) realloc(newPower int) error {
+func (hat *HashedArrayTree) realloc(newPower int) {
 	if newPower == hat.power {
-		return nil
+		return
 	}
 	newTop := makeTop(pow2(newPower))
 	if newPower > hat.power {
@@ -115,7 +116,6 @@ func (hat *HashedArrayTree) realloc(newPower int) error {
 	hat.top = newTop
 	hat.power = newPower
 	hat.capacity = pow2(len(newTop))
-	return nil
 }
 
 func (hat *HashedArrayTree) topIndex(index int) int {

@@ -17,9 +17,15 @@ func TestCamelcase(t *testing.T) {
 	}
 	for _, testcase := range testcase {
 		in, _ := ioutil.TempFile(os.TempDir(), "")
-		defer in.Close()
-		io.WriteString(in, testcase.input)
-		in.Seek(0, os.SEEK_SET)
+		defer func() { _ = in.Close() }()
+		if _, err := io.WriteString(in, testcase.input); err != nil {
+			t.Error(err)
+			t.FailNow()
+		}
+		if _, err := in.Seek(0, io.SeekStart); err != nil {
+			t.Error(err)
+			t.FailNow()
+		}
 
 		actual := Camelcase(in)
 		if actual != testcase.expected {

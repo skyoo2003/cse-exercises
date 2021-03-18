@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/no-prefix-set/problem
-
+// nolint
 package reducedstring
 
 import (
@@ -22,7 +22,7 @@ func ReducedString(in *os.File) string {
 			idx++
 		}
 	}
-	if len(line) == 0 {
+	if line == "" {
 		line = "Empty String"
 	}
 	fmt.Println(line)

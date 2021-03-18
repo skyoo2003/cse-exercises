@@ -1,11 +1,24 @@
 // https://www.hackerrank.com/challenges/qheap1/problem
-
+// nolint
 package qheap1
 
 import (
 	"errors"
 	"fmt"
 	"os"
+)
+
+const numChildren = 2
+
+const (
+	leftChild  = 1
+	rightChild = 2
+)
+
+const (
+	cmdAdd = iota + 1
+	cmdDelete
+	cmdPrint
 )
 
 // Value value type
@@ -25,14 +38,14 @@ func NewHeap() *Heap {
 
 func (t *Heap) parent(index int) (Value, int) {
 	if index > 0 {
-		where := index / 2
+		where := index / numChildren
 		return t.Data[where], where
 	}
 	return 0, -1
 }
 
 func (t *Heap) leftChild(index int) (Value, int) {
-	where := index*2 + 1
+	where := index*numChildren + leftChild
 	if where < len(t.Data) {
 		return t.Data[where], where
 	}
@@ -40,7 +53,7 @@ func (t *Heap) leftChild(index int) (Value, int) {
 }
 
 func (t *Heap) rightChild(index int) (Value, int) {
-	where := index*2 + 2
+	where := index*numChildren + rightChild
 	if where < len(t.Data) {
 		return t.Data[where], where
 	}
@@ -76,7 +89,7 @@ func (t *Heap) Delete(value Value) error {
 
 		last := len(t.Data) - 1
 		t.Data[where], t.Data[last] = t.Data[last], t.Data[where]
-		t.Data = append(t.Data[:last])
+		t.Data = t.Data[:last]
 
 		for where != -1 && where < len(t.Data) {
 			minValue := t.Data[where]
@@ -104,7 +117,7 @@ func (t *Heap) Delete(value Value) error {
 
 		return nil
 	}
-	return errors.New("No data")
+	return errors.New("no data")
 }
 
 // Top find maximum value in heap
@@ -112,7 +125,7 @@ func (t *Heap) Top() (Value, error) {
 	if len(t.Data) > 0 {
 		return t.Data[0], nil
 	}
-	return 0, errors.New("No data")
+	return 0, errors.New("no data")
 }
 
 // QHeap1 My solution
@@ -125,13 +138,17 @@ func QHeap1(in *os.File) {
 		var value Value
 		fmt.Fscanf(in, "%d", &cmd)
 		switch cmd {
-		case 1:
+		case cmdAdd:
 			fmt.Fscanf(in, "%d", &value)
-			heap.Insert(value)
-		case 2:
+			if err := heap.Insert(value); err != nil {
+				panic(err)
+			}
+		case cmdDelete:
 			fmt.Fscanf(in, "%d", &value)
-			heap.Delete(value)
-		case 3:
+			if err := heap.Delete(value); err != nil {
+				panic(err)
+			}
+		case cmdPrint:
 			value, _ = heap.Top()
 			fmt.Println(value)
 		}

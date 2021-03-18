@@ -1,4 +1,5 @@
-package main
+// nolint
+package golang
 
 // always a bigger than b
 func gcd(a, b int) int {

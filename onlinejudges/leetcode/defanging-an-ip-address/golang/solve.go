@@ -1,3 +1,4 @@
+// nolint
 package defanginganipaddress
 
 func defangIPaddr(address string) string {

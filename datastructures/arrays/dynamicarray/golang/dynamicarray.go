@@ -1,3 +1,4 @@
+// nolint
 package dynamicarray
 
 import (
@@ -65,26 +66,25 @@ func (a *DynamicArray) expand() error {
 	if a.capacity == 0 {
 		a.realloc(1)
 	} else {
-		a.realloc(a.capacity * 2)
+		a.realloc(a.capacity * GrowthFactor)
 	}
 	return nil
 }
 
 func (a *DynamicArray) shrink() error {
-	if a.capacity >= 2 {
-		a.realloc(a.capacity / 2)
+	if a.capacity >= GrowthFactor {
+		a.realloc(a.capacity / GrowthFactor)
 	} else {
 		a.realloc(1)
 	}
 	return nil
 }
 
-func (a *DynamicArray) realloc(capacity int) error {
+func (a *DynamicArray) realloc(capacity int) {
 	newBuffer := make([]interface{}, capacity)
 	copy(newBuffer, a.buffer)
 	a.buffer = newBuffer
 	a.capacity = capacity
-	return nil
 }
 
 // Capacity get capacity of dynamic array

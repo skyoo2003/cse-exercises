@@ -1,3 +1,4 @@
+// nolint
 package skiplist
 
 import (
@@ -128,7 +129,7 @@ func (sl *SkipList) getUpdateAndCursor(key int) (update []*Node, x *Node) {
 }
 
 // Insert add an item into skip list
-func (sl *SkipList) Insert(key int, value interface{}) error {
+func (sl *SkipList) Insert(key int, value interface{}) {
 	update, x := sl.getUpdateAndCursor(key)
 	if x.key == key {
 		x.value = value
@@ -147,7 +148,6 @@ func (sl *SkipList) Insert(key int, value interface{}) error {
 		}
 	}
 	sl.size++
-	return nil
 }
 
 // Delete delete an item by key from skip list
@@ -165,6 +165,7 @@ func (sl *SkipList) Delete(key int) error {
 			sl.level--
 		}
 		sl.size--
+		return nil
 	}
 	return ErrNotFound
 }
