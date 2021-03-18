@@ -27,4 +27,3 @@ repos:
       - id: golangci-lint
       - id: go-unit-tests
       - id: go-mod-tidy
-exclude: "helm/*"

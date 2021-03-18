@@ -2,9 +2,15 @@ name: Go
 
 on:
   push:
-    branches: [ master ]
+    branches:
+    - master
+    paths:
+    - "**/*.go"
   pull_request:
-    branches: [ master ]
+    branches:
+    - master
+    paths:
+    - "**/*.go"
 
 jobs:
   build:
